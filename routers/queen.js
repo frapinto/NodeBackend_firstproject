@@ -49,4 +49,52 @@ routerQueen.get('/:genero/:recepcion', (req,res) => {
     res.send(JSON.stringify(resultados));
 })
 
+routerQueen.post('/', (req,res) => {
+    let albumNuevo = req.body;
+    queen.push(albumNuevo);
+    res.send(JSON.stringify(queen)); 
+} );
+
+routerQueen.put('/:id', (req,res) => {
+    let albumCambiado = req.body;
+    const id = req.params.id;
+
+    const indice = queen.findIndex(queen => queen.id == id);
+
+    if(indice >= 0){
+        queen[indice] = albumCambiado;
+    } else {
+        res.status(404).send(`No se pudo encontrar el indice ${indice}`)
+    }
+
+    res.send(JSON.stringify(queen));
+})
+
+routerQueen.patch('/:id', (req,res) => {
+    const albumPatcheado = req.body;
+    const id = req.params.id; 
+
+    const indice = queen.findIndex(queen => queen.id == id);
+
+    if (indice >= 0) {
+       const albumAPatchear = queen[indice]
+       Object.assign(albumAPatchear,albumPatcheado);
+    }
+
+    res.send(JSON.stringify(queen))
+})
+
+routerQueen.delete('/:id', (req,res) => {
+    const id = req.params.id;
+
+    const indice = queen.findIndex(queen => queen.id == id);
+
+    if(indice >= 0) {
+        queen.splice(indice,1);
+    }
+
+    res.send(JSON.stringify(queen));
+})
+
+
 module.exports = routerQueen;

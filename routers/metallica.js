@@ -9,7 +9,7 @@ const routerMetallica = express.Router();
 routerMetallica.use(express.json());
 
 routerMetallica.get('/', (req,res) => {
-    res.send(JSON.stringify(acdc))
+    res.send(JSON.stringify(metallica))
 })
 
 routerMetallica.get('/:genero', (req,res) => {
@@ -49,5 +49,53 @@ routerMetallica.get('/:genero/:recepcion', (req,res) => {
 
     res.send(JSON.stringify(resultados))
 })
+
+routerMetallica.post('/', (req,res) => {
+    let albumNuevo = req.body;
+    metallica.push(albumNuevo);
+    res.send(JSON.stringify(metallica)); 
+} );
+
+routerMetallica.put('/:id', (req,res) => {
+    let albumCambiado = req.body;
+    const id = req.params.id;
+
+    const indice = metallica.findIndex(metallica => metallica.id == id);
+
+    if(indice >= 0){
+        metallica[indice] = albumCambiado;
+    } else {
+        res.status(404).send(`No se pudo encontrar el indice ${indice}`)
+    }
+
+    res.send(JSON.stringify(metallica));
+})
+
+routerMetallica.patch('/:id', (req,res) => {
+    const albumPatcheado = req.body;
+    const id = req.params.id; 
+
+    const indice = metallica.findIndex(metallica => metallica.id == id);
+
+    if (indice >= 0) {
+       const albumAPatchear = metallica[indice]
+       Object.assign(albumAPatchear,albumPatcheado);
+    }
+
+    res.send(JSON.stringify(metallica))
+})
+
+routerMetallica.delete('/:id', (req,res) => {
+    const id = req.params.id;
+
+    const indice = metallica.findIndex(metallica => metallica.id == id);
+
+    if(indice >= 0) {
+        metallica.splice(indice,1);
+    }
+
+    res.send(JSON.stringify(metallica));
+})
+
 
 module.exports = routerMetallica;
