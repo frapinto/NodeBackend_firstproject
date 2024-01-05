@@ -9,7 +9,7 @@ const routerQueen = express.Router();
 routerQueen.use(express.json());
 
 routerQueen.get('/', (req,res) => {
-    res.send(JSON.stringify(queen))
+    res.send(queen)
 });
 
 routerQueen.get('/:genero', (req, res) => {

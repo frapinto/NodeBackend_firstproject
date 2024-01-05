@@ -9,7 +9,7 @@ const routerAcdc = express.Router();
 routerAcdc.use(express.json());
 
 routerAcdc.get('/', (req,res) => {
-    res.send(JSON.stringify(acdc))
+    res.send(acdc)
 });
 
 routerAcdc.get('/:genero', (req, res) => {
@@ -22,16 +22,12 @@ routerAcdc.get('/:genero', (req, res) => {
 
     if(req.query.ordenar === 'ventas'){
         res.send(JSON.stringify(resultados.sort((a,b) => b.ventas - a.ventas)));
-    } else {
-        res.send(JSON.stringify(resultados));
-    }
-
-    if(req.query.ordenar === 'canciones'){
+    } else if(req.query.ordenar === 'canciones'){
         res.send(JSON.stringify(resultados.sort((a,b) => b.canciones - a.canciones)));
     } else {
         res.send(JSON.stringify(resultados));
     }
-
+    
     res.send(JSON.stringify(resultados));
 })
 

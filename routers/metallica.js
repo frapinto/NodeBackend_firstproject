@@ -9,7 +9,7 @@ const routerMetallica = express.Router();
 routerMetallica.use(express.json());
 
 routerMetallica.get('/', (req,res) => {
-    res.send(JSON.stringify(metallica))
+    res.send(metallica)
 })
 
 routerMetallica.get('/:genero', (req,res) => {

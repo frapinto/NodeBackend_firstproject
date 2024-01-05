@@ -1,5 +1,5 @@
 let albumenes = {
-    'acdc':[
+    'acdc': [
         {
             'id': 1,
             'nombre': "High Voltage",
